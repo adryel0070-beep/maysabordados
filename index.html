@@ -5,15 +5,113 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Loja de Bordados</title>
 <style>
-  body { font-family: Arial, sans-serif; background: #fafafa; margin: 0; padding: 20px; }
-  .produto { background: white; border-radius: 10px; padding: 15px; margin-bottom: 20px; box-shadow: 0 0 10px rgba(0,0,0,0.1); }
-  img { width: 100%; max-width: 300px; border-radius: 10px; }
-  button { background: #4caf50; color: white; border: none; padding: 10px 15px; border-radius: 5px; cursor: pointer; }
+  body {
+    font-family: Arial, sans-serif;
+    background: #fafafa;
+    margin: 0;
+    padding: 20px;
+  }
+  .produto {
+    background: white;
+    border-radius: 10px;
+    padding: 15px;
+    margin-bottom: 20px;
+    box-shadow: 0 0 10px rgba(0,0,0,0.1);
+  }
+  img {
+    width: 100%;
+    max-width: 300px;
+    border-radius: 10px;
+  }
+  button {
+    background: #4caf50;
+    color: white;
+    border: none;
+    padding: 10px 15px;
+    border-radius: 5px;
+    cursor: pointer;
+  }
+
+  /* ===== Estilo da Modal ===== */
+  .modal {
+    display: none;
+    position: fixed;
+    z-index: 100;
+    left: 0; top: 0;
+    width: 100%; height: 100%;
+    background: rgba(0, 0, 0, 0.6);
+  }
+  .modal-content {
+    background: white;
+    border-radius: 10px;
+    padding: 20px;
+    width: 90%;
+    max-width: 400px;
+    margin: 100px auto;
+    box-shadow: 0 0 15px rgba(0,0,0,0.2);
+    position: relative;
+  }
+  .modal-content h2 {
+    margin-top: 0;
+  }
+  .close {
+    position: absolute;
+    right: 15px;
+    top: 10px;
+    font-size: 22px;
+    cursor: pointer;
+    color: #333;
+  }
+  input, textarea {
+    width: 100%;
+    padding: 8px;
+    margin-bottom: 10px;
+    border-radius: 5px;
+    border: 1px solid #ccc;
+    font-size: 14px;
+  }
+  #confirmarPedido {
+    width: 100%;
+    background: #4caf50;
+    color: white;
+    border: none;
+    padding: 10px;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 16px;
+  }
 </style>
 </head>
 <body>
   <h1>Produtos Disponíveis</h1>
   <div id="lista-produtos"></div>
+
+  <!-- Modal de Compra -->
+  <div id="formModal" class="modal">
+    <div class="modal-content">
+      <span class="close" onclick="fecharFormulario()">&times;</span>
+      <h2>Finalizar Pedido</h2>
+      <form id="pedidoForm" onsubmit="enviarPedido(event)">
+        <input type="hidden" id="produto">
+        <input type="hidden" id="valor">
+        <input type="hidden" id="frete">
+
+        <label>Nome completo:</label>
+        <input type="text" id="nome" required>
+
+        <label>WhatsApp:</label>
+        <input type="text" id="whatsapp" required>
+
+        <label>Endereço (ou deixe em branco para retirada):</label>
+        <textarea id="endereco"></textarea>
+
+        <label>Quantidade:</label>
+        <input type="number" id="quantidade" min="1" required>
+
+        <button id="confirmarPedido" type="submit">Confirmar Pedido</button>
+      </form>
+    </div>
+  </div>
 
   <script>
     const API_URL = "https://script.google.com/macros/s/AKfycbyHf77qNPzVAFu_iTjxxwCkl0Yy_jJPb7S0bg4jIJ_s8HAV5brsgHj44k6GDqNd_z5V0g/exec";
@@ -34,17 +132,34 @@
           <p>${p.Descrição}</p>
           <p><b>Preço:</b> R$ ${p["Valor Unitario"]}</p>
           <p><b>Estoque:</b> ${p.Quantidade} unidades</p>
-          <button onclick="comprar('${p.Título}', ${p["Valor Unitario"]}, ${p["Valor do Frete"]})">Comprar</button>
+          <button onclick="abrirFormulario('${p.Título}', ${p["Valor Unitario"]}, ${p["Valor do Frete"]})">Comprar</button>
         `;
         container.appendChild(div);
       });
     }
 
-    async function comprar(produto, valor, frete) {
-      const nome = prompt("Seu nome completo:");
-      const whatsapp = prompt("Seu WhatsApp:");
-      const endereco = prompt("Endereço para entrega (ou deixe em branco para retirada):");
-      const quantidade = prompt("Quantidade desejada:");
+    function abrirFormulario(produto, valor, frete) {
+      document.getElementById("formModal").style.display = "block";
+      document.getElementById("produto").value = produto;
+      document.getElementById("valor").value = valor;
+      document.getElementById("frete").value = frete;
+    }
+
+    function fecharFormulario() {
+      document.getElementById("formModal").style.display = "none";
+      document.getElementById("pedidoForm").reset();
+    }
+
+    async function enviarPedido(e) {
+      e.preventDefault();
+
+      const nome = document.getElementById("nome").value;
+      const whatsapp = document.getElementById("whatsapp").value;
+      const endereco = document.getElementById("endereco").value;
+      const quantidade = parseInt(document.getElementById("quantidade").value);
+      const produto = document.getElementById("produto").value;
+      const valor = parseFloat(document.getElementById("valor").value);
+      const frete = parseFloat(document.getElementById("frete").value);
 
       const total = (valor * quantidade) + (endereco ? frete : 0);
 
@@ -62,11 +177,17 @@
         body: JSON.stringify(venda)
       });
 
-      alert(`Pedido registrado com sucesso! Valor total: R$ ${total.toFixed(2)}. A empreendedora entrará em contato via WhatsApp.`);
+      alert(`✅ Pedido registrado com sucesso!\n\nProduto: ${produto}\nValor total: R$ ${total.toFixed(2)}\n\nA empreendedora entrará em contato via WhatsApp.`);
+      fecharFormulario();
+    }
+
+    // Fecha modal ao clicar fora
+    window.onclick = function(event) {
+      const modal = document.getElementById("formModal");
+      if (event.target === modal) fecharFormulario();
     }
 
     carregarProdutos();
   </script>
 </body>
 </html>
-
