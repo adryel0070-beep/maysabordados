@@ -1,374 +1,71 @@
 <!DOCTYPE html>
-<html lang="pt-br">
+<html lang="pt-BR">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Maysa Bordados - Bordados Personalizados</title>
-  <style>
-    /* ---------- RESET ---------- */
-    * {
-      margin: 0;
-      padding: 0;
-      box-sizing: border-box;
-      font-family: 'Poppins', sans-serif;
-      scroll-behavior: smooth;
-    }
-
-    body {
-      background-color: #f5f0e8;
-      color: #333;
-      overflow-x: hidden;
-    }
-
-    /* ---------- CABEÇALHO ---------- */
-    header {
-      height: 100vh;
-      background: 
-        linear-gradient(rgba(0,0,0,0.3), rgba(0,0,0,0.4)),
-        url('https://images.pexels.com/photos/6461513/pexels-photo-6461513.jpeg')
-        center/cover no-repeat;
-      display: flex;
-      flex-direction: column;
-      justify-content: center;
-      align-items: center;
-      text-align: center;
-      color: white;
-    }
-
-    header h1 {
-      font-size: 3rem;
-      margin-bottom: 10px;
-      letter-spacing: 2px;
-      animation: fadeIn 1.5s ease forwards;
-    }
-
-    header p {
-      font-size: 1.2rem;
-      max-width: 600px;
-      animation: fadeIn 2s ease forwards;
-    }
-
-    nav {
-      position: fixed;
-      top: 0;
-      width: 100%;
-      background-color: rgba(255,255,255,0.9);
-      backdrop-filter: blur(10px);
-      display: flex;
-      justify-content: center;
-      gap: 25px;
-      padding: 15px;
-      box-shadow: 0 2px 8px rgba(0,0,0,0.1);
-      z-index: 1000;
-    }
-
-    nav a {
-      color: #7a6a53;
-      text-decoration: none;
-      font-weight: 600;
-      transition: 0.3s;
-    }
-
-    nav a:hover {
-      color: #e6b7b7;
-    }
-
-    @keyframes fadeIn {
-      from { opacity: 0; transform: translateY(20px); }
-      to { opacity: 1; transform: translateY(0); }
-    }
-
-    /* ---------- SEÇÕES ---------- */
-    section {
-      padding: 80px 10%;
-    }
-
-    section h2 {
-      color: #7a6a53;
-      font-size: 2rem;
-      text-align: center;
-      margin-bottom: 40px;
-    }
-
-    /* ---------- BLOCO 1: MÁQUINA ---------- */
-    .machine {
-      display: flex;
-      flex-wrap: wrap;
-      align-items: center;
-      gap: 40px;
-    }
-
-    .machine img {
-      width: 400px;
-      border-radius: 20px;
-      object-fit: cover;
-      box-shadow: 0 4px 15px rgba(0,0,0,0.1);
-      /* Imagem da máquina de bordado */
-    }
-
-    .machine-text {
-      flex: 1;
-      min-width: 250px;
-    }
-
-    .machine-text p {
-      line-height: 1.6;
-    }
-
-    /* ---------- BLOCO 2: SERVIÇOS ---------- */
-    .services {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-      gap: 30px;
-    }
-
-    .service-card {
-      background-color: white;
-      border-radius: 15px;
-      padding: 25px;
-      text-align: center;
-      box-shadow: 0 4px 10px rgba(0,0,0,0.1);
-      transition: 0.3s ease;
-    }
-
-    .service-card:hover {
-      transform: translateY(-5px);
-    }
-
-    .service-card img {
-      width: 100%;
-      height: 180px;
-      border-radius: 10px;
-      object-fit: cover;
-      margin-bottom: 15px;
-    }
-
-    .service-card h3 {
-      color: #b58b8b;
-      margin-bottom: 10px;
-    }
-
-    /* ---------- BLOCO 3: SOBRE ---------- */
-    .about {
-      display: flex;
-      flex-wrap: wrap;
-      align-items: center;
-      gap: 40px;
-    }
-
-    .about img {
-      width: 300px;
-      border-radius: 20px;
-      object-fit: cover;
-      /* Foto da empresária */
-    }
-
-    .about-text {
-      flex: 1;
-      min-width: 250px;
-      line-height: 1.6;
-    }
-
-    /* ---------- BLOCO 4: CARROSSEL ---------- */
-    .carousel-container {
-      overflow: hidden;
-      position: relative;
-    }
-
-    .carousel {
-      display: flex;
-      transition: transform 0.5s ease;
-    }
-
-    .carousel-card {
-      min-width: 300px;
-      background-color: white;
-      border-radius: 15px;
-      margin: 0 15px;
-      padding: 20px;
-      text-align: center;
-      box-shadow: 0 4px 10px rgba(0,0,0,0.1);
-    }
-
-    .carousel-card h3 {
-      color: #7a6a53;
-      margin-bottom: 10px;
-    }
-
-    .carousel-card p {
-      font-size: 0.95rem;
-      color: #444;
-    }
-
-    .carousel-buttons {
-      display: flex;
-      justify-content: center;
-      margin-top: 20px;
-      gap: 10px;
-    }
-
-    .carousel-buttons button {
-      background-color: #e6b7b7;
-      border: none;
-      padding: 10px 15px;
-      border-radius: 50%;
-      cursor: pointer;
-      transition: 0.3s;
-    }
-
-    .carousel-buttons button:hover {
-      background-color: #b58b8b;
-    }
-
-    /* ---------- WHATSAPP BOTÃO ---------- */
-    .whatsapp-btn {
-      display: inline-block;
-      margin-top: 15px;
-      background-color: #b5c1a6;
-      color: white;
-      padding: 10px 15px;
-      border-radius: 8px;
-      text-decoration: none;
-      font-weight: 600;
-      transition: 0.3s;
-    }
-
-    .whatsapp-btn:hover {
-      background-color: #8a997a;
-    }
-
-    footer {
-      text-align: center;
-      padding: 40px;
-      background-color: #7a6a53;
-      color: white;
-      font-size: 0.9rem;
-      margin-top: 80px;
-    }
-
-    @media (max-width: 768px) {
-      header h1 { font-size: 2.2rem; }
-      .machine img, .about img { width: 100%; }
-      section { padding: 60px 5%; }
-    }
-  </style>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Loja de Bordados</title>
+<style>
+  body { font-family: Arial, sans-serif; background: #fafafa; margin: 0; padding: 20px; }
+  .produto { background: white; border-radius: 10px; padding: 15px; margin-bottom: 20px; box-shadow: 0 0 10px rgba(0,0,0,0.1); }
+  img { width: 100%; max-width: 300px; border-radius: 10px; }
+  button { background: #4caf50; color: white; border: none; padding: 10px 15px; border-radius: 5px; cursor: pointer; }
+</style>
 </head>
 <body>
-
-  <nav>
-    <a href="#maquina">A Máquina</a>
-    <a href="#servicos">Serviços</a>
-    <a href="#sobre">Sobre</a>
-  </nav>
-
-  <header>
-    <h1>Maysa Bordados</h1>
-    <p>Bordados personalizados com amor, tecnologia e um toque artesanal.</p>
-  </header>
-
-  <!-- BLOCO 1: MÁQUINA -->
-  <section id="maquina">
-    <h2>A Máquina de Bordado</h2>
-    <div class="machine">
-      <img src="https://images.unsplash.com/photo-1611926653457-2830b1f9a8b9?auto=format&fit=crop&w=900&q=80" alt="Máquina de Bordado">
-      <div class="machine-text">
-        <p>
-          A <strong>Singer ProLine 1500</strong> é a parceira ideal para bordados de alta qualidade. 
-          Equipada com múltiplas agulhas e tecnologia de precisão, ela permite criar peças únicas com acabamento impecável. 
-          Cada ponto é cuidadosamente programado e revisado, garantindo que o resultado final seja uma verdadeira obra de arte.
-        </p>
-      </div>
-    </div>
-  </section>
-
-  <!-- BLOCO 2: SERVIÇOS -->
-  <section id="servicos">
-    <h2>Serviços Ofertados</h2>
-    <div class="services">
-      <div class="service-card">
-        <img src="https://images.pexels.com/photos/3872899/pexels-photo-3872899.jpeg" alt="Toalhas de Banho">
-        <h3>Bordado em Toalhas de Banho</h3>
-        <p>Personalização completa com nomes, iniciais ou logotipos. Ideal para presentes e uso pessoal.</p>
-      </div>
-      <div class="service-card">
-        <img src="https://images.pexels.com/photos/8142193/pexels-photo-8142193.jpeg" alt="Toalhas de Rosto">
-        <h3>Bordado em Toalhas de Rosto</h3>
-        <p>Perfeito para kits personalizados e lembranças delicadas para eventos ou pousadas.</p>
-      </div>
-      <div class="service-card">
-        <img src="https://images.pexels.com/photos/24023403/pexels-photo-24023403.jpeg" alt="Toalhas para Eventos">
-        <h3>Toalhas para Eventos</h3>
-        <p>Personalização em grandes quantidades com prazos rápidos e acabamento profissional.</p>
-      </div>
-    </div>
-  </section>
-
-  <!-- BLOCO 3: SOBRE -->
-  <section id="sobre">
-    <h2>Sobre a Empresária</h2>
-    <div class="about">
-      <img src="https://images.unsplash.com/photo-1551836022-d5d88e9218df?auto=format&fit=crop&w=900&q=80" alt="Foto da Bordadeira">
-      <div class="about-text">
-        <p>Olá! Sou apaixonada por bordados e detalhes que contam histórias.  
-        Cada peça que produzo é feita com dedicação e carinho, refletindo o amor pelo trabalho artesanal aliado à tecnologia moderna.  
-        Meu propósito é transformar tecidos simples em peças únicas e cheias de significado.</p>
-      </div>
-    </div>
-  </section>
-
-  <!-- BLOCO 4: CARROSSEL DE PLANOS -->
-  <section id="planos">
-    <h2>Valores e Pacotes</h2>
-    <div class="carousel-container">
-      <div class="carousel" id="carousel">
-        <div class="carousel-card">
-          <h3>Toalhas de Banho</h3>
-          <p>5 unidades = R$ 200,00<br>10 unidades = R$ 280,00</p>
-          <a class="whatsapp-btn" href="https://wa.me/5567992584093?text=Olá! Gostaria de um orçamento de bordado em toalhas de banho.">Solicitar Orçamento</a>
-        </div>
-        <div class="carousel-card">
-          <h3>Toalhas de Rosto</h3>
-          <p>5 unidades = R$ 130,00<br>10 unidades = R$ 230,00</p>
-          <a class="whatsapp-btn" href="https://wa.me/5567992584093?text=Olá! Gostaria de um orçamento de bordado em toalhas de rosto.">Solicitar Orçamento</a>
-        </div>
-        <div class="carousel-card">
-          <h3>Toalhas para Eventos</h3>
-          <p>Até 20 unidades = R$ 15,00 (unidade)<br>A partir de 20 unidade<strong>Sob consulta</strong></p>
-          <a class="whatsapp-btn" href="https://wa.me/5567992584093?text=Olá! Tenho interesse em bordados para eventos.">Entrar em Contato</a>
-        </div>
-		<div class="carousel-card">
-          <h3>Toalhas para Bebês</h3>
-          <p>Unidade R$ 55,00<br>A partir de 10 = R$ 40,00 (unidade)</p>
-          <a class="whatsapp-btn" href="https://wa.me/5567992584093?text=Olá! Tenho interesse em bordados para eventos.">Solicitar Orçamento</a>
-        </div>
-		<div class="carousel-card">
-          <h3>Toalhas Avulsas</h3>
-          <p>Unidade R$ 40,00<br>A partir de 10 = R$ 25,00 (unidade)</p>
-          <a class="whatsapp-btn" href="https://wa.me/5567992584093?text=Olá! Tenho interesse em bordados para eventos.">Solicitar Orçamento</a>
-        </div>
-      </div>
-      <div class="carousel-buttons">
-        <button onclick="moveCarousel(-1)">‹</button>
-        <button onclick="moveCarousel(1)">›</button>
-      </div>
-    </div>
-  </section>
-
-  <footer>
-    © 2025 Maysa Bordados — Todos os direitos reservados.
-  </footer>
+  <h1>Produtos Disponíveis</h1>
+  <div id="lista-produtos"></div>
 
   <script>
-    /* ---------- CARROSSEL FUNCIONAL ---------- */
-    let position = 0;
-    function moveCarousel(direction) {
-      const carousel = document.getElementById('carousel');
-      const cards = carousel.children.length;
-      position += direction;
-      if (position < 0) position = cards - 1;
-      if (position >= cards) position = 0;
-      carousel.style.transform = `translateX(-${position * 320}px)`;
+    const API_URL = "https://script.google.com/macros/s/AKfycbwRpFh3SZq2L-FOeVrm-5kN6HbFrXe9tA5L1wiqN1kgEB5PfQwqanQaEGFmdWz2pPfx/exec";
+
+    async function carregarProdutos() {
+      const res = await fetch(API_URL);
+      const produtos = await res.json();
+
+      const container = document.getElementById("lista-produtos");
+      container.innerHTML = "";
+
+      produtos.forEach(p => {
+        const div = document.createElement("div");
+        div.className = "produto";
+        div.innerHTML = `
+          <img src="${p.Foto}" alt="${p.Título}">
+          <h3>${p.Título}</h3>
+          <p>${p.Descrição}</p>
+          <p><b>Preço:</b> R$ ${p["Valor Unitario"]}</p>
+          <p><b>Estoque:</b> ${p.Quantidade} unidades</p>
+          <button onclick="comprar('${p.Título}', ${p["Valor Unitario"]}, ${p["Valor do Frete"]})">Comprar</button>
+        `;
+        container.appendChild(div);
+      });
     }
+
+    async function comprar(produto, valor, frete) {
+      const nome = prompt("Seu nome completo:");
+      const whatsapp = prompt("Seu WhatsApp:");
+      const endereco = prompt("Endereço para entrega (ou deixe em branco para retirada):");
+      const quantidade = prompt("Quantidade desejada:");
+
+      const total = (valor * quantidade) + (endereco ? frete : 0);
+
+      const venda = {
+        Nome: nome,
+        WhatsApp: whatsapp,
+        Endereço: endereco || "Retirada",
+        Produto: produto,
+        Quantidade: quantidade,
+        ValorTotal: total
+      };
+
+      await fetch(API_URL, {
+        method: "POST",
+        body: JSON.stringify(venda)
+      });
+
+      alert(`Pedido registrado com sucesso! Valor total: R$ ${total.toFixed(2)}. A empreendedora entrará em contato via WhatsApp.`);
+    }
+
+    carregarProdutos();
   </script>
 </body>
 </html>
