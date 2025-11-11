@@ -95,6 +95,7 @@
         <input type="hidden" id="produto">
         <input type="hidden" id="valor">
         <input type="hidden" id="frete">
+        <input type="hidden" id="estoque">
 
         <label>Nome completo:</label>
         <input type="text" id="nome" required>
@@ -132,17 +133,22 @@
           <p>${p.Descrição}</p>
           <p><b>Preço:</b> R$ ${p["Valor Unitario"]}</p>
           <p><b>Estoque:</b> ${p.Quantidade} unidades</p>
-          <button onclick="abrirFormulario('${p.Título}', ${p["Valor Unitario"]}, ${p["Valor do Frete"]})">Comprar</button>
+          <button onclick="abrirFormulario('${p.Título}', ${p["Valor Unitario"]}, ${p["Valor do Frete"]}, ${p.Quantidade})">Comprar</button>
         `;
         container.appendChild(div);
       });
     }
 
-    function abrirFormulario(produto, valor, frete) {
+    function abrirFormulario(produto, valor, frete, estoque) {
       document.getElementById("formModal").style.display = "block";
       document.getElementById("produto").value = produto;
       document.getElementById("valor").value = valor;
       document.getElementById("frete").value = frete;
+      document.getElementById("estoque").value = estoque;
+
+      const qtdInput = document.getElementById("quantidade");
+      qtdInput.max = estoque;
+      qtdInput.value = 1;
     }
 
     function fecharFormulario() {
@@ -160,6 +166,12 @@
       const produto = document.getElementById("produto").value;
       const valor = parseFloat(document.getElementById("valor").value);
       const frete = parseFloat(document.getElementById("frete").value);
+      const estoque = parseInt(document.getElementById("estoque").value);
+
+      if (quantidade > estoque) {
+        alert(`🚫 Pedido inválido! Há apenas ${estoque} unidade(s) disponível(is).`);
+        return;
+      }
 
       const total = (valor * quantidade) + (endereco ? frete : 0);
 
@@ -177,8 +189,9 @@
         body: JSON.stringify(venda)
       });
 
-      alert(`✅ Pedido registrado com sucesso!\n\nProduto: ${produto}\nValor total: R$ ${total.toFixed(2)}\n\nA empreendedora entrará em contato via WhatsApp.`);
+      alert(`✅ Pedido registrado com sucesso!\n\nProduto: ${produto}\nQuantidade: ${quantidade}\nValor total: R$ ${total.toFixed(2)}\n\nA empreendedora entrará em contato via WhatsApp.`);
       fecharFormulario();
+      carregarProdutos(); // Atualiza o site automaticamente após a compra
     }
 
     // Fecha modal ao clicar fora
