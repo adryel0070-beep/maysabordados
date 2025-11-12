@@ -5,12 +5,111 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Loja de Bordados</title>
 <style>
-  body {
-    font-family: Arial, sans-serif;
-    background: #fafafa;
-    margin: 0;
-    padding: 20px;
+  * {
+    box-sizing: border-box;
   }
+  body {
+    font-family: 'Poppins', Arial, sans-serif;
+    background: #fdfdfd;
+    margin: 0;
+    padding: 0;
+    color: #333;
+  }
+
+  /* === CABEÇALHO === */
+  header {
+    background: url('https://images.pexels.com/photos/6461513/pexels-photo-6461513.jpeg') center/cover no-repeat; /* 🔸 substitua pela URL do banner */
+    color: white;
+    text-align: center;
+    padding: 100px 20px;
+    position: relative;
+  }
+  header::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background: rgba(0,0,0,0.5);
+  }
+  header h1, header p {
+    position: relative;
+    z-index: 1;
+  }
+  header h1 {
+    font-size: 2.5em;
+    margin: 0;
+  }
+  header p {
+    font-size: 1.2em;
+  }
+
+  /* === SEÇÕES GERAIS === */
+  section {
+    padding: 50px 20px;
+    text-align: center;
+  }
+  section h2 {
+    font-size: 2em;
+    margin-bottom: 30px;
+    color: #444;
+  }
+
+  /* === CARDS DE SERVIÇOS === */
+  .cards {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 20px;
+    justify-content: center;
+  }
+  .card {
+    background: white;
+    border-radius: 15px;
+    padding: 15px;
+    box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+  }
+  .card img {
+    width: 100%;
+    height: 180px;
+    object-fit: cover;
+    border-radius: 10px;
+  }
+  .card h3 {
+    margin-top: 10px;
+  }
+
+  /* === CARDS DE ENCOMENDAS === */
+  .price-card {
+    background: #fff;
+    border: 1px solid #ddd;
+    border-radius: 15px;
+    padding: 20px;
+    box-shadow: 0 3px 10px rgba(0,0,0,0.08);
+  }
+  .price-card h3 {
+    color: #4caf50;
+    margin-bottom: 10px;
+  }
+  .price-card ul {
+    list-style: none;
+    padding: 0;
+    margin: 10px 0;
+  }
+  .price-card li {
+    padding: 5px 0;
+    border-bottom: 1px dashed #ddd;
+  }
+  .whatsapp-btn {
+    background: #25d366;
+    color: white;
+    border: none;
+    padding: 10px 15px;
+    border-radius: 5px;
+    cursor: pointer;
+    text-decoration: none;
+    display: inline-block;
+    margin-top: 10px;
+  }
+
+  /* === PRODUTOS DISPONÍVEIS === */
   .produto {
     background: white;
     border-radius: 10px;
@@ -18,7 +117,7 @@
     margin-bottom: 20px;
     box-shadow: 0 0 10px rgba(0,0,0,0.1);
   }
-  img {
+  .produto img {
     width: 100%;
     max-width: 300px;
     border-radius: 10px;
@@ -32,7 +131,7 @@
     cursor: pointer;
   }
 
-  /* ===== Estilo da Modal ===== */
+  /* === MODAL === */
   .modal {
     display: none;
     position: fixed;
@@ -51,9 +150,6 @@
     box-shadow: 0 0 15px rgba(0,0,0,0.2);
     position: relative;
   }
-  .modal-content h2 {
-    margin-top: 0;
-  }
   .close {
     position: absolute;
     right: 15px;
@@ -62,31 +158,129 @@
     cursor: pointer;
     color: #333;
   }
-  input, textarea {
-    width: 100%;
-    padding: 8px;
-    margin-bottom: 10px;
-    border-radius: 5px;
-    border: 1px solid #ccc;
-    font-size: 14px;
-  }
-  #confirmarPedido {
-    width: 100%;
-    background: #4caf50;
+
+  /* === RODAPÉ === */
+  footer {
+    background: #333;
     color: white;
-    border: none;
-    padding: 10px;
-    border-radius: 5px;
-    cursor: pointer;
-    font-size: 16px;
+    text-align: center;
+    padding: 20px;
+    font-size: 0.9em;
   }
 </style>
 </head>
 <body>
-  <h1>Produtos Disponíveis</h1>
-  <div id="lista-produtos"></div>
 
-  <!-- Modal de Compra -->
+  <!-- ===== CABEÇALHO ===== -->
+  <header>
+    <h1>Loja de Bordados Personalizados</h1>
+    <p>Qualidade artesanal com toque especial ❤️</p>
+  </header>
+
+  <!-- ===== SERVIÇOS ===== -->
+  <section id="servicos">
+    <h2>Nossos Serviços</h2>
+    <div class="cards">
+      <div class="card">
+        <img src="https://images.pexels.com/photos/18759186/pexels-photo-18759186.jpeg" alt="Bordados Personalizados">
+        <h3>Bordados Personalizados</h3>
+        <p>Crie peças únicas com o nome, logotipo ou frase que desejar!</p>
+      </div>
+      <div class="card">
+        <img src="https://images.pexels.com/photos/21031399/pexels-photo-21031399.jpeg" alt="Bordados a Pronta Entrega">
+        <h3>Bordados a Pronta Entrega</h3>
+        <p>Produtos prontos, bordados com muito carinho e disponíveis imediatamente.</p>
+      </div>
+      <div class="card">
+        <img src="https://images.pexels.com/photos/7795829/pexels-photo-7795829.jpeg" alt="Bordados Sob Encomenda">
+        <h3>Bordados Sob Encomenda</h3>
+        <p>Encomende quantidades maiores e receba tudo personalizado do seu jeito.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== ENCOMENDAS ===== -->
+  <section id="encomendas">
+    <h2>Encomendas Sob Medida</h2>
+    <div class="cards">
+
+      <!-- Toalha de rosto -->
+      <div class="price-card">
+        <h3>Toalha de Rosto</h3>
+        <ul>
+          <li>5 unidades – R$ 90</li>
+          <li>10 unidades – R$ 160</li>
+          <li>15 unidades – R$ 210</li>
+          <li>20 unidades – R$ 260</li>
+        </ul>
+        <a class="whatsapp-btn" target="_blank" href="https://wa.me/5567992584093?text=Ol%C3%A1,%20gostaria%20de%20encomendar%20toalhas%20de%20rosto.">Encomendar</a>
+      </div>
+
+      <!-- Toalha de banho -->
+      <div class="price-card">
+        <h3>Toalha de Banho</h3>
+        <ul>
+          <li>5 unidades – R$ 150</li>
+          <li>10 unidades – R$ 280</li>
+          <li>15 unidades – R$ 400</li>
+          <li>20 unidades – R$ 500</li>
+        </ul>
+        <a class="whatsapp-btn" target="_blank" href="https://wa.me/5567992584093?text=Ol%C3%A1,%20gostaria%20de%20encomendar%20toalhas%20de%20banho.">Encomendar</a>
+      </div>
+
+      <!-- Panos de prato -->
+      <div class="price-card">
+        <h3>Panos de Prato</h3>
+        <ul>
+          <li>5 unidades – R$ 70</li>
+          <li>10 unidades – R$ 130</li>
+          <li>15 unidades – R$ 180</li>
+          <li>20 unidades – R$ 220</li>
+        </ul>
+        <a class="whatsapp-btn" target="_blank" href="https://wa.me/5567992584093?text=Ol%C3%A1,%20gostaria%20de%20encomendar%20panos%20de%20prato.">Encomendar</a>
+      </div>
+
+      <!-- Toalha de mesa -->
+      <div class="price-card">
+        <h3>Toalha de Mesa</h3>
+        <ul>
+          <li>5 unidades – R$ 250</li>
+          <li>10 unidades – R$ 480</li>
+          <li>15 unidades – R$ 700</li>
+          <li>20 unidades – R$ 920</li>
+        </ul>
+        <a class="whatsapp-btn" target="_blank" href="https://wa.me/5567992584093?text=Ol%C3%A1,%20gostaria%20de%20encomendar%20toalhas%20de%20mesa.">Encomendar</a>
+      </div>
+
+      <!-- Toalinhas para eventos -->
+      <div class="price-card">
+        <h3>Toalinhas para Eventos</h3>
+        <ul>
+          <li>5 unidades – R$ 60</li>
+          <li>10 unidades – R$ 110</li>
+          <li>15 unidades – R$ 150</li>
+          <li>20 unidades – R$ 190</li>
+        </ul>
+        <a class="whatsapp-btn" target="_blank" href="https://wa.me/5567992584093?text=Ol%C3%A1,%20gostaria%20de%20encomendar%20toalinhas%20para%20eventos.">Encomendar</a>
+      </div>
+
+      <!-- Acima de 20 -->
+      <div class="price-card">
+        <h3>Acima de 20 Unidades</h3>
+        <p>Entre em contato e solicite seu orçamento personalizado.</p>
+        <a class="whatsapp-btn" target="_blank" href="https://wa.me/5567992584093?text=Ol%C3%A1,%20gostaria%20de%20encomendar%20bordados%20acima%20de%2020%20unidades.">Entrar em Contato</a>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- ===== PRODUTOS A PRONTA ENTREGA ===== -->
+  <section id="produtos">
+    <h2>Produtos a Pronta Entrega</h2>
+    <div id="lista-produtos"></div>
+  </section>
+
+  <!-- ===== MODAL ===== -->
   <div id="formModal" class="modal">
     <div class="modal-content">
       <span class="close" onclick="fecharFormulario()">&times;</span>
@@ -114,6 +308,11 @@
     </div>
   </div>
 
+  <!-- ===== RODAPÉ ===== -->
+  <footer>
+    <p>&copy; 2025 Loja de Bordados | Desenvolvido com 💚 por Adryel Aquino</p>
+  </footer>
+
   <script>
     const API_URL = "https://script.google.com/macros/s/AKfycbyHf77qNPzVAFu_iTjxxwCkl0Yy_jJPb7S0bg4jIJ_s8HAV5brsgHj44k6GDqNd_z5V0g/exec";
 
@@ -125,17 +324,19 @@
       container.innerHTML = "";
 
       produtos.forEach(p => {
-        const div = document.createElement("div");
-        div.className = "produto";
-        div.innerHTML = `
-          <img src="${p.Foto}" alt="${p.Título}">
-          <h3>${p.Título}</h3>
-          <p>${p.Descrição}</p>
-          <p><b>Preço:</b> R$ ${p["Valor Unitario"]}</p>
-          <p><b>Estoque:</b> ${p.Quantidade} unidades</p>
-          <button onclick="abrirFormulario('${p.Título}', ${p["Valor Unitario"]}, ${p["Valor do Frete"]}, ${p.Quantidade})">Comprar</button>
-        `;
-        container.appendChild(div);
+        if (p.Quantidade > 0) {
+          const div = document.createElement("div");
+          div.className = "produto";
+          div.innerHTML = `
+            <img src="${p.Foto}" alt="${p.Título}">
+            <h3>${p.Título}</h3>
+            <p>${p.Descrição}</p>
+            <p><b>Preço:</b> R$ ${p["Valor Unitario"]}</p>
+            <p><b>Estoque:</b> ${p.Quantidade} unidades</p>
+            <button onclick="abrirFormulario('${p.Título}', ${p["Valor Unitario"]}, ${p["Valor do Frete"]}, ${p.Quantidade})">Comprar</button>
+          `;
+          container.appendChild(div);
+        }
       });
     }
 
@@ -191,10 +392,9 @@
 
       alert(`✅ Pedido registrado com sucesso!\n\nProduto: ${produto}\nQuantidade: ${quantidade}\nValor total: R$ ${total.toFixed(2)}\n\nA empreendedora entrará em contato via WhatsApp.`);
       fecharFormulario();
-      carregarProdutos(); // Atualiza o site automaticamente após a compra
+      carregarProdutos();
     }
 
-    // Fecha modal ao clicar fora
     window.onclick = function(event) {
       const modal = document.getElementById("formModal");
       if (event.target === modal) fecharFormulario();
